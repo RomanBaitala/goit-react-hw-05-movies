@@ -4,7 +4,7 @@ import {
   StyledMovieLink,
 } from './movieList.styled';
 
-export const MovieList = ({ filmList, state }) => {
+const MovieList = ({ filmList, state }) => {
   return (
     <StyledMovieList>
       {filmList.results.map(film => {
@@ -19,3 +19,5 @@ export const MovieList = ({ filmList, state }) => {
     </StyledMovieList>
   );
 };
+
+export default MovieList;

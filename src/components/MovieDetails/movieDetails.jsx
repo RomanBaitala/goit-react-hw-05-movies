@@ -1,12 +1,23 @@
 import { fetchFilmDetails } from 'api/fethcFilms';
 import { Suspense, useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { Button, Box } from './movieDetails.styled';
 
-const FilmDetails = () => {
+import {
+  Button,
+  DescriptionLink,
+  MovieDescription,
+  MovieInfoContainer,
+  MovieLinks,
+  MovieMeta,
+  MovieTitle,
+  MovieYear,
+} from './movieDetails.styled';
+
+const MovieDetails = () => {
   const params = useParams();
   const movieId = parseInt(params.movieId);
   const [filmData, setFilmData] = useState({});
+
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/movies';
 
@@ -16,40 +27,44 @@ const FilmDetails = () => {
 
   const { title, tagline, poster_path, overview, release_date } = filmData;
 
-  document.title = `Movie info - ${title}`;
+  document.title = `React HW05 - Movie info - ${title}`;
 
   return (
-    <Box>
+    <MovieInfoContainer>
       <Link to={backLinkHref}>
-        <Button>
-          <span>Go back </span>
-        </Button>
+        <Button>Go back</Button>
       </Link>
-      <Box>
-        <Box>
-          <img
-            width="300"
-            height="450"
-            alt={tagline}
-            src={
-              poster_path
-                ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`
-                : ''
-            }
-          />
-        </Box>
-        <Box>
-          <h1>
-            {title} <span>({String(release_date).slice(0, 4)})</span>
-          </h1>
-          <p>{overview}</p>
-        </Box>
-      </Box>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Outlet />
-      </Suspense>
-    </Box>
+      {title && overview ? (
+        <>
+          <MovieTitle>
+            {title} <MovieYear>({String(release_date).slice(0, 4)})</MovieYear>
+          </MovieTitle>
+          <MovieMeta>
+            <img
+              width="300"
+              height="450"
+              alt={tagline}
+              src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`}
+            />
+            <MovieDescription>{overview}</MovieDescription>
+          </MovieMeta>
+          <MovieLinks>
+            <DescriptionLink to="cast" state={{ from: `${backLinkHref}` }}>
+              Cast
+            </DescriptionLink>
+            <DescriptionLink to="reviews" state={{ from: `${backLinkHref}` }}>
+              Reviews
+            </DescriptionLink>
+          </MovieLinks>
+          <Suspense fallback={<p>Loading...</p>}>
+            <Outlet />
+          </Suspense>
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </MovieInfoContainer>
   );
 };
 
-export default FilmDetails;
+export default MovieDetails;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Button = styled.button`
   display: inline-block;
@@ -38,4 +39,46 @@ export const Button = styled.button`
   }
 `;
 
-export const Box = styled.div``;
+export const MovieInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`;
+
+export const MovieTitle = styled.h1`
+  margin: 0 0 20px;
+  font-size: 36px;
+  font-weight: bold;
+`;
+
+export const MovieYear = styled.span`
+  font-size: 32px;
+  font-weight: normal;
+`;
+
+export const MovieMeta = styled.div`
+  display: flex;
+  padding: 10px 0 20px;
+  border-bottom: 1px solid #000000;
+`;
+
+export const MovieDescription = styled.p`
+  margin: 0 0 0 10px;
+  font-size: 16px;
+  font-weight: normal;
+`;
+
+export const DescriptionLink = styled(Link)`
+  margin: 10px 0 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #222244;
+`;
+
+export const MovieLinks = styled.div`
+  display: flex;
+  padding: 0 0 20px;
+  flex-direction: column;
+  border-bottom: 1px solid #000000;
+`;
